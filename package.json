@@ -1,36 +1,66 @@
 {
-  "name": "nepallocaldata",
-  "version": "1.0.0",
+  "name": "nepal-administrative-data",
+  "version": "1.0.1",
   "description": "A comprehensive NPM package providing utility functions for Nepali administrative data including provinces, districts, and Gaunpalika/Nagarpalika (GaPa) with bilingual support for both English and Nepali languages.",
-  "main": "jest.config.js",
-  "directories": {
-    "example": "examples",
-    "test": "tests"
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/index.d.ts"
+    }
   },
   "scripts": {
     "build": "rollup -c",
-    "test": "jest"
+    "test": "jest",
+    "prepublishOnly": "npm run build && npm test"
   },
-  "repository": "git+https://github.com/dikshyaghale/NepalLocalData.git",
-  "author": "Dikshya Ghale",
-  "license": "ISC",
+  "keywords": [
+    "nepal",
+    "administrative",
+    "provinces",
+    "districts",
+    "municipalities",
+    "gaunpalika",
+    "nagarpalika",
+    "bilingual",
+    "nepali",
+    "typescript",
+    "data"
+  ],
+  "author": "Nepal Administrative Data Package",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/nepal-administrative-data.git"
+  },
+  "homepage": "https://github.com/your-username/nepal-administrative-data#readme",
   "bugs": {
-    "url": "https://github.com/dikshyaghale/NepalLocalData/issues"
+    "url": "https://github.com/your-username/nepal-administrative-data/issues"
   },
-  "homepage": "https://github.com/dikshyaghale/NepalLocalData#readme",
-  "dependencies": {
-    "@types/node": "^24.0.13",
-    "tslib": "^2.8.1"
+  "engines": {
+    "node": ">=18.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.6",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.4",
     "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.13",
     "jest": "^30.0.4",
     "rollup": "^2.79.2",
     "rollup-plugin-terser": "^7.0.2",
     "ts-jest": "^29.4.0",
+    "tslib": "^2.8.1",
     "typescript": "^5.8.3"
-  }
+  },
+  "peerDependencies": {},
+  "dependencies": {}
 }
