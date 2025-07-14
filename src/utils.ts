@@ -158,6 +158,7 @@ export function getGaPas(language: Language = 'en'): NameCodePair[] {
   return Array.from(data.gapas.values()).map((gapa) => ({
     code: gapa.code,
     name: getName(gapa.nameEn, gapa.nameNe, validatedLanguage),
+    totalWard: gapa.totalWards,
   }));
 }
 
@@ -231,6 +232,7 @@ export function getGaPasByDistrict(
     return {
       code: gapa.code,
       name: getName(gapa.nameEn, gapa.nameNe, validatedLanguage),
+      totalWard: gapa.totalWards,
     };
   });
 }

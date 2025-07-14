@@ -70,4 +70,5 @@ export interface FilterOptions {
 export interface NameCodePair {
   code: number;
   name: string;
+  totalWard?: number;
 }
