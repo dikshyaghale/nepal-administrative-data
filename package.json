@@ -1,6 +1,6 @@
 {
   "name": "nepal-administrative-data",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A comprehensive NPM package providing utility functions for Nepali administrative data including provinces, districts, and Gaunpalika/Nagarpalika (GaPa) with bilingual support for both English and Nepali languages.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
