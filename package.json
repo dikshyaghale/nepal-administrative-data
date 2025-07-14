@@ -35,15 +35,15 @@
     "typescript",
     "data"
   ],
-  "author": "Nepal Administrative Data Package",
+  "author": "Dikshya Ghale",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/nepal-administrative-data.git"
+    "url": "https://github.com/dikshyaghale/nepal-administrative-data.git"
   },
-  "homepage": "https://github.com/your-username/nepal-administrative-data#readme",
+  "homepage": "https://github.com/dikshyaghale/nepal-administrative-data.git",
   "bugs": {
-    "url": "https://github.com/your-username/nepal-administrative-data/issues"
+    "url": "https://github.com/dikshyaghale/nepal-administrative-data.git"
   },
   "engines": {
     "node": ">=18.0.0"
