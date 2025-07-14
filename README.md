@@ -286,11 +286,8 @@ If you need to upgrade Node.js:
 
 ```bash
 # Clone the repository
-git clone https://github.com/dikshyaghale/NepalLocalData.git
-cd NepalLocalData
-
-# Check Node.js compatibility
-node check-node-version.js
+git clone https://github.com/dikshyaghale/nepal-administrative-data.git
+cd nepal-administrative-data
 
 # Install dependencies
 npm install
