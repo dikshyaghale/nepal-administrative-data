@@ -26,45 +26,6 @@ A comprehensive NPM package providing utility functions for Nepali administrativ
 npm install nepal-administrative-data
 ```
 
-## Quick Start
-
-### Node.js (ES Modules)
-
-````javascript
-import {
-  getProvinces,
-  getDistricts,
-  getGaPas,
-  getDistrictsByProvince,
-  getGaPasByDistrict,
-} from 'nepal-administrative-data';
-
-// Get all provinces in English
-const provinces = getProvinces();
-console.log(provinces);
-// [{ code: 1, name: "Koshi Pradesh" }, ...]
-
-// Get all provinces in Nepali
-const provincesNe = getProvinces('ne');
-console.log(provincesNe);
-// [{ code: 1, name: "कोशी प्रदेश" }, ...]
-
-// Get districts by province
-const districts = getDistrictsByProvince(1); // Koshi Pradesh
-console.log(districts);
-
-// Get GaPas by district
-const gapas = getGaPasByDistrict(101); // Taplejung
-console.log(gapas);
-
-### Node.js (CommonJS)
-```javascript
-const { getProvinces, getDistricts, getGaPas, getDistrictsByProvince, getGaPasByDistrict } = require('nepal-administrative-data');
-
-// Same usage as above
-const provinces = getProvinces();
-````
-
 ## API Reference
 
 ### Core Functions
