@@ -1,0 +1,37 @@
+# Source files
+src/
+tests/
+examples/
+
+# Development files
+rollup.config.js
+tsconfig.json
+jest.config.js
+
+
+# Build tools
+node_modules/
+.git/
+.gitignore
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+.cache/
+
+# Development dependencies
+package-lock.json
+yarn.lock
+
+# Build artifacts (keep only dist/)
+*.tsbuildinfo

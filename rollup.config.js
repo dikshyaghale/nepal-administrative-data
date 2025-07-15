@@ -6,31 +6,41 @@ import { terser } from 'rollup-plugin-terser';
 const production = !process.env.ROLLUP_WATCH;
 
 export default [
-  // ES Module build
+  // ES Module build (primary - most users)
   {
     input: 'src/index.ts',
     output: {
       file: 'dist/index.esm.js',
       format: 'es',
-      sourcemap: true,
+      sourcemap: false,
     },
     plugins: [
       nodeResolve(),
       commonjs(),
       typescript({
         tsconfig: './tsconfig.json',
-        declarationDir: './dist/types',
+        sourceMap: false,
+        declarationMap: false,
       }),
-      production && terser(),
+      terser({
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+          pure_funcs: ['console.log', 'console.info', 'console.debug'],
+        },
+        mangle: {
+          reserved: ['getProvinces', 'getDistricts', 'getGaPas'], // Keep public API names
+        },
+      }),
     ],
   },
-  // CommonJS build
+  // CommonJS build (for Node.js)
   {
     input: 'src/index.ts',
     output: {
       file: 'dist/index.cjs.js',
       format: 'cjs',
-      sourcemap: true,
+      sourcemap: false,
       exports: 'auto',
     },
     plugins: [
@@ -38,26 +48,16 @@ export default [
       commonjs(),
       typescript({
         tsconfig: './tsconfig.json',
+        sourceMap: false,
+        declarationMap: false,
+        declaration: false,
       }),
-      production && terser(),
-    ],
-  },
-  // UMD build for browser
-  {
-    input: 'src/index.ts',
-    output: {
-      file: 'dist/index.umd.js',
-      format: 'umd',
-      name: 'NepalAdministrativeData',
-      sourcemap: true,
-    },
-    plugins: [
-      nodeResolve(),
-      commonjs(),
-      typescript({
-        tsconfig: './tsconfig.json',
+      terser({
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+        },
       }),
-      production && terser(),
     ],
   },
 ];
