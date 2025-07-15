@@ -20,20 +20,9 @@ let processedData: {
 } | null = null;
 
 /**
- * Clear the cached data (useful for debugging)
- */
-export function clearCache() {
-  processedData = null;
-}
-
-/**
  * Process raw data and create optimized lookup structures
  */
 function processData() {
-  if (processedData) {
-    return processedData;
-  }
-
   const provinces = new Map<number, Province>();
   const districts = new Map<number, District>();
   const gapas = new Map<number, GaPa>();

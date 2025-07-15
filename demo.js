@@ -16,7 +16,6 @@ console.log('🇳🇵 Nepal Administrative Data Package Demo\n');
 // 1. Get all provinces
 console.log('1️ All Provinces (English):');
 const provinces = getProvinces();
-console.log(provinces, 'provv');
 provinces.forEach((p) => console.log(`   ${p.code}: ${p.name}`));
 
 console.log('\n1️ All Provinces (Nepali):');
