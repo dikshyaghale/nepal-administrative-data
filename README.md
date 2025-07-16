@@ -57,7 +57,8 @@ Returns all GaPas (municipalities) with their codes and names.
 ```javascript
 const gapas = getGaPas(); // English
 const gapasNe = getGaPas('ne'); // Nepali
-// Returns: [{ code: 10101, name: "Phaktanlung Gaunpalika", totalWard: 7 }, ...]
+// Returns: [{ code: 10101, name: "Phaktanlung Rural Municipality", totalWard: 7 }, ...] - English
+// Returns: [{ code: 10101, name: "फक्ताङ्लुङ्ग गाउँपालिका", totalWard: 7 }, ...] - Nepali
 ```
 
 #### `getDistrictsByProvince(provinceCode: number, language?: 'en' | 'ne'): NameCodePair[]`
@@ -77,7 +78,8 @@ Returns GaPas within a specific district.
 ```javascript
 const gapas = getGaPasByDistrict(101); // Taplejung GaPas
 const gapasNe = getGaPasByDistrict(101, 'ne'); // In Nepali
-// Returns: [{ code: 10101, name: "Phaktanlung Gaunpalika", totalWard: 7 }, ...]
+// Returns: [{ code: 10101, name: "Phaktanlung Rural Municipality", totalWard: 7 }, ...] - English
+// Returns: [{ code: 10101, name: "फक्ताङ्लुङ्ग गाउँपालिका", totalWard: 7 }, ...] - Nepali
 ```
 
 ### Detailed Information Functions
@@ -106,7 +108,7 @@ Returns detailed information about a specific GaPa.
 
 ```javascript
 const gapa = getGaPaDetails(10101);
-// Returns: { id: 1, code: 10101, nameEn: "Phaktanlung Gaunpalika", nameNe: "फक्ताङ्लुङ्ग गाउँपालिका", districtId: 1, districtCode: 101, provinceId: 1, totalWards: 7 }
+// Returns: { id: 1, code: 10101, nameEn: "Phaktanlung Rural Municipality", nameNe: "फक्ताङ्लुङ्ग गाउँपालिका", districtId: 1, districtCode: 101, provinceId: 1, totalWards: 7 }
 ```
 
 ## TypeScript Support

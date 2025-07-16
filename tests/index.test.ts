@@ -135,7 +135,7 @@ describe('Nepal Administrative Data Package', () => {
     test('getGaPaDetails should return GaPa details', () => {
       const gapa = getGaPaDetails(1);
       expect(gapa).toBeDefined();
-      expect(gapa?.nameEn).toBe('Phaktanlung Gaunpalika');
+      expect(gapa?.nameEn).toBe('Phaktanlung Rural Municipality');
       expect(gapa?.nameNe).toBe('फक्ताङ्लुङ्ग गाउँपालिका');
     });
 
