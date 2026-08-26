@@ -1,15 +1,15 @@
 {
   "name": "nepal-administrative-data",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Complete Nepal administrative boundaries and government data API - provinces, districts, municipalities (Gaunpalika/Nagarpalika) with bilingual search and TypeScript definitions. Perfect for mapping, location-based services in Nepal.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "sideEffects": false,
   "files": [
     "dist/index.cjs.js",
     "dist/index.esm.js",
     "dist/index.d.ts",
-    "dist/data.d.ts",
     "dist/types.d.ts",
     "dist/utils.d.ts",
     "README.md",
@@ -23,9 +23,12 @@
     }
   },
   "scripts": {
+    "generate": "node scripts/generate-data.mjs",
     "build": "rollup -c",
     "test": "jest",
-    "prepublishOnly": "npm run build && npm test"
+    "bench": "node scripts/benchmark.mjs",
+    "verify": "node scripts/verify-dist.mjs",
+    "prepublishOnly": "npm run build && npm test && npm run verify"
   },
   "keywords": [
     "nepal",
