@@ -13,10 +13,6 @@ export {
   getGaPaDetails,
 } from './utils';
 
-// Export raw data for advanced use cases
-export { rawData } from './data';
-
-// Default export with all functions for convenience
 import {
   getProvinces,
   getDistricts,
@@ -28,12 +24,18 @@ import {
   getGaPaDetails,
 } from './utils';
 
-// console.log(getProvinceDetails(1), 'province eng');
-// console.log(getDistricts('en'), 'district en');
-// console.log(getGaPas('ne'), 'gapgas');
-// console.log(getDistrictsByProvince(1, 'ne'), 'district filter');
-// console.log(getGaPasByDistrict(101, 'ne'), 'gapa filter');
+import { createLazyRawData } from './internal/rawData';
+import { RawAdministrativeData } from './types';
 
+/**
+ * Raw administrative data from Nepal - one row per local level.
+ *
+ * The rows are rebuilt from the encoded store on first access, so importing this
+ * module without touching `rawData` costs nothing.
+ */
+export const rawData: RawAdministrativeData[] = /*#__PURE__*/ createLazyRawData();
+
+// Default export with all functions for convenience
 export default {
   getProvinces,
   getDistricts,

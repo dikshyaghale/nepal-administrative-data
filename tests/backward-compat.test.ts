@@ -1,3 +1,7 @@
+/**
+ * The original 1.x test suite, unchanged, plus assertions that pin the exact
+ * shapes and error messages the 1.x API produced.
+ */
 import {
   getProvinces,
   getDistricts,
@@ -7,8 +11,10 @@ import {
   getProvinceDetails,
   getDistrictDetails,
   getGaPaDetails,
+  rawData,
   Language,
 } from '../src/index';
+import defaultExport from '../src/index';
 
 describe('Nepal Administrative Data Package', () => {
   describe('getProvinces', () => {
@@ -26,8 +32,7 @@ describe('Nepal Administrative Data Package', () => {
       const provinces = getProvinces('ne');
       expect(provinces).toBeDefined();
       expect(provinces.length).toBeGreaterThan(0);
-      // Check if Nepali text is present
-      expect(provinces.some((p) => /[\u0900-\u097F]/.test(p.name))).toBe(true);
+      expect(provinces.some((p) => /[ऀ-ॿ]/.test(p.name))).toBe(true);
     });
 
     test('should throw error for invalid language', () => {
@@ -51,7 +56,7 @@ describe('Nepal Administrative Data Package', () => {
       const districts = getDistricts('ne');
       expect(districts).toBeDefined();
       expect(districts.length).toBeGreaterThan(0);
-      expect(districts.some((d) => /[\u0900-\u097F]/.test(d.name))).toBe(true);
+      expect(districts.some((d) => /[ऀ-ॿ]/.test(d.name))).toBe(true);
     });
   });
 
@@ -69,13 +74,13 @@ describe('Nepal Administrative Data Package', () => {
       const gapas = getGaPas('ne');
       expect(gapas).toBeDefined();
       expect(gapas.length).toBeGreaterThan(0);
-      expect(gapas.some((g) => /[\u0900-\u097F]/.test(g.name))).toBe(true);
+      expect(gapas.some((g) => /[ऀ-ॿ]/.test(g.name))).toBe(true);
     });
   });
 
   describe('getDistrictsByProvince', () => {
     test('should return districts for a valid province', () => {
-      const districts = getDistrictsByProvince(1); // Koshi Province
+      const districts = getDistrictsByProvince(1);
       expect(districts).toBeDefined();
       expect(Array.isArray(districts)).toBe(true);
       expect(districts.length).toBeGreaterThan(0);
@@ -85,7 +90,7 @@ describe('Nepal Administrative Data Package', () => {
       const districts = getDistrictsByProvince(1, 'ne');
       expect(districts).toBeDefined();
       expect(districts.length).toBeGreaterThan(0);
-      expect(districts.some((d) => /[\u0900-\u097F]/.test(d.name))).toBe(true);
+      expect(districts.some((d) => /[ऀ-ॿ]/.test(d.name))).toBe(true);
     });
 
     test('should throw error for invalid province', () => {
@@ -97,7 +102,7 @@ describe('Nepal Administrative Data Package', () => {
 
   describe('getGaPasByDistrict', () => {
     test('should return GaPas for a valid district', () => {
-      const gapas = getGaPasByDistrict(1); // Taplejung
+      const gapas = getGaPasByDistrict(1);
       expect(gapas).toBeDefined();
       expect(Array.isArray(gapas)).toBe(true);
       expect(gapas.length).toBeGreaterThan(0);
@@ -107,7 +112,7 @@ describe('Nepal Administrative Data Package', () => {
       const gapas = getGaPasByDistrict(1, 'ne');
       expect(gapas).toBeDefined();
       expect(gapas.length).toBeGreaterThan(0);
-      expect(gapas.some((g) => /[\u0900-\u097F]/.test(g.name))).toBe(true);
+      expect(gapas.some((g) => /[ऀ-ॿ]/.test(g.name))).toBe(true);
     });
 
     test('should throw error for invalid district', () => {
@@ -143,6 +148,96 @@ describe('Nepal Administrative Data Package', () => {
       expect(getProvinceDetails(999)).toBeNull();
       expect(getDistrictDetails(999)).toBeNull();
       expect(getGaPaDetails(999)).toBeNull();
+    });
+  });
+
+  describe('1.x contract details', () => {
+    test('counts are unchanged', () => {
+      expect(getProvinces()).toHaveLength(7);
+      expect(getDistricts()).toHaveLength(77);
+      expect(getGaPas()).toHaveLength(753);
+    });
+
+    test('getGaPas entries expose totalWard', () => {
+      expect(getGaPas()[0]).toEqual({
+        code: 10101,
+        name: 'Phaktanlung Rural Municipality',
+        totalWard: 7,
+      });
+    });
+
+    test('lookup by code works alongside lookup by id', () => {
+      expect(getDistrictDetails(101)?.nameEn).toBe('Taplejung');
+      expect(getGaPaDetails(10101)?.nameEn).toBe('Phaktanlung Rural Municipality');
+      expect(getGaPasByDistrict(101)).toHaveLength(getGaPasByDistrict(1).length);
+    });
+
+    test('district details carry province linkage', () => {
+      expect(getDistrictDetails(709)).toMatchObject({
+        id: 77,
+        code: 709,
+        nameEn: 'Kanchanpur',
+        provinceId: 7,
+        provinceCode: 7,
+      });
+    });
+
+    test('errors thrown are still plain Errors', () => {
+      expect(() => getDistrictsByProvince(999)).toThrow(Error);
+      expect(() => getGaPas('xx' as Language)).toThrow(Error);
+    });
+
+    test('default export still exposes the original eight functions', () => {
+      for (const name of [
+        'getProvinces',
+        'getDistricts',
+        'getGaPas',
+        'getDistrictsByProvince',
+        'getGaPasByDistrict',
+        'getProvinceDetails',
+        'getDistrictDetails',
+        'getGaPaDetails',
+      ]) {
+        expect(typeof (defaultExport as Record<string, unknown>)[name]).toBe(
+          'function'
+        );
+      }
+    });
+  });
+
+  describe('rawData', () => {
+    test('behaves like the original array', () => {
+      expect(Array.isArray(rawData)).toBe(true);
+      expect(rawData).toHaveLength(753);
+      expect(rawData[0]).toEqual({
+        Province: 1,
+        'Province Name En': 'Koshi Province',
+        'Province Name Ne': 'कोशी प्रदेश',
+        'District Id': 1,
+        'District Code': 101,
+        'District Name En': 'Taplejung',
+        'District Name Ne': 'ताप्लेजुङ',
+        'GAPA Id': 1,
+        'GAPA Code': 10101,
+        'GaPa Name En': 'Phaktanlung Rural Municipality',
+        'GaPa Name Ne': 'फक्ताङ्लुङ्ग गाउँपालिका',
+        'Total Wards': 7,
+      });
+    });
+
+    test('supports iteration, spreading and JSON serialisation', () => {
+      expect([...rawData]).toHaveLength(753);
+      expect(rawData.filter((r) => r.Province === 3).length).toBeGreaterThan(0);
+      expect(Object.keys(rawData[0])).toHaveLength(12);
+      expect(JSON.parse(JSON.stringify(rawData))).toHaveLength(753);
+      let seen = 0;
+      for (const _row of rawData) seen++;
+      expect(seen).toBe(753);
+    });
+
+    test('matches the published 1.x snapshot exactly', () => {
+      const source = require('../data/source.json');
+      expect(JSON.parse(JSON.stringify(rawData))).toEqual(source);
     });
   });
 });
