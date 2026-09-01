@@ -5,5 +5,5 @@
 export const EN_SUFFIXES: readonly string[] = ["Sub-Metropolitian City","Rural Municipality","Metropolitian City","Sub-Metropolitan City","Metropolitan City","Municipality"];
 
 /** Nepali local level name suffixes, indexed from 1 in the encoded records. */
-export const NE_SUFFIXES: readonly string[] = ["उपमहानगरपालिका","महानगरपालिका","गाउँपालिका","नगरापालिका","गाउंपालिका","नगरपालिका"];
+export const NE_SUFFIXES: readonly string[] = ["उपमहानगरपालिका","महानगरपालिका","गाउँपालिका","गाउंपालिका","नगरपालिका"];
 
